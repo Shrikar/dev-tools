@@ -12,6 +12,14 @@
   "dependencies": {
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
+  ,
+    "react-router-dom": "^6.14.1",
+    "jose": "^5.0.0",
+    "react-json-view": "^1.21.3",
+    "crypto-js": "^4.1.1",
+    "monaco-editor": "^0.40.0",
+    "@monaco-editor/react": "^5.0.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
