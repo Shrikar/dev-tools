@@ -1,5 +1,10 @@
+import './JsonComparePage.css'
 import JSONCompare from '../tools/JSONCompare'
 
 export default function JsonComparePage() {
-  return <JSONCompare />
+  return (
+    <div className="json-compare-page">
+      <JSONCompare />
+    </div>
+  )
 }

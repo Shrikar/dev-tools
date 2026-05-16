@@ -1,22 +1,25 @@
 .app-layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
+  display: flex;
+  width: 100vw;
   min-height: 100vh;
+  overflow: hidden;
   background: #070b17;
   color: #e5e7eb;
 }
 
 .sidebar-shell {
-  position: sticky;
-  top: 0;
-  align-self: start;
+  width: 280px;
+  flex-shrink: 0;
+  height: 100vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 28px 20px;
+  padding: 32px 24px;
   gap: 28px;
   background: #0b1220;
   border-right: 1px solid rgba(148, 163, 184, 0.16);
+  box-sizing: border-box;
 }
 
 .sidebar-brand {
@@ -99,23 +102,32 @@
 }
 
 .app-content {
-  padding: 28px;
-  background: #070b17;
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
   overflow: auto;
+  padding: 32px;
+  background: #070b17;
+  box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
   .app-layout {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    width: 100%;
   }
 
   .sidebar-shell {
+    width: 100%;
+    height: auto;
     position: relative;
     border-right: none;
     border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    padding: 20px;
   }
 
   .app-content {
     padding: 20px;
+    height: auto;
   }
 }
