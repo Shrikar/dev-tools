@@ -1,46 +1,32 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
+import AppLayout from './components/layout/AppLayout'
+import HomePage from './pages/HomePage'
+import JsonFormatterPage from './pages/JsonFormatterPage'
+import JsonComparePage from './pages/JsonComparePage'
 import JwtDecoderPage from './pages/JwtDecoderPage'
-import JSONFormatter from './tools/JSONFormatter'
-import JSONCompare from './tools/JSONCompare'
-import Base64Tool from './tools/Base64Tool'
-import HashGenerator from './tools/HashGenerator'
-import UUIDGenerator from './tools/UUIDGenerator'
-import URLEncodeDecode from './tools/URLEncodeDecode'
-import TimestampConverter from './tools/TimestampConverter'
+import Base64Page from './pages/Base64Page'
+import HashGeneratorPage from './pages/HashGeneratorPage'
+import UuidGeneratorPage from './pages/UuidGeneratorPage'
+import UrlEncodeDecodePage from './pages/UrlEncodeDecodePage'
+import TimestampConverterPage from './pages/TimestampConverterPage'
 
 function App() {
   return (
     <BrowserRouter basename="/dev-tools">
-      <div className="app-shell">
-        <nav className="sidebar">
-          <h2>Dev Tools</h2>
-          <ul>
-            <li><Link to="/json-formatter">JSON Formatter</Link></li>
-            <li><Link to="/json-compare">JSON Compare</Link></li>
-            <li><Link to="/jwt-decoder">JWT Decoder</Link></li>
-            <li><Link to="/base64">Base64</Link></li>
-            <li><Link to="/hash">Hash Generator</Link></li>
-            <li><Link to="/uuid">UUID Generator</Link></li>
-            <li><Link to="/url">URL Encode/Decode</Link></li>
-            <li><Link to="/timestamp">Timestamp Converter</Link></li>
-          </ul>
-        </nav>
-
-        <main className="content">
-          <Routes>
-            <Route path="/" element={<div>Choose a tool from the sidebar.</div>} />
-            <Route path="/json-formatter" element={<JSONFormatter />} />
-            <Route path="/json-compare" element={<JSONCompare />} />
-            <Route path="/jwt-decoder" element={<JwtDecoderPage />} />
-            <Route path="/base64" element={<Base64Tool />} />
-            <Route path="/hash" element={<HashGenerator />} />
-            <Route path="/uuid" element={<UUIDGenerator />} />
-            <Route path="/url" element={<URLEncodeDecode />} />
-            <Route path="/timestamp" element={<TimestampConverter />} />
-          </Routes>
-        </main>
-      </div>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/json-formatter" element={<JsonFormatterPage />} />
+          <Route path="/json-compare" element={<JsonComparePage />} />
+          <Route path="/jwt-decoder" element={<JwtDecoderPage />} />
+          <Route path="/base64" element={<Base64Page />} />
+          <Route path="/hash-generator" element={<HashGeneratorPage />} />
+          <Route path="/uuid-generator" element={<UuidGeneratorPage />} />
+          <Route path="/url-encode-decode" element={<UrlEncodeDecodePage />} />
+          <Route path="/timestamp-converter" element={<TimestampConverterPage />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   )
 }
