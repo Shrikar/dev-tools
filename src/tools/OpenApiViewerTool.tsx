@@ -65,11 +65,11 @@ export default function OpenApiViewerTool() {
     return op.summary || op.operationId || ''
   }, [parsed.api, chosenPath, chosenMethod])
 
-  const generatedRequest = useMemo(() => {
-    if (!chosenServer || !chosenPath) return ''
+  let generatedRequest = ''
+  if (chosenServer && chosenPath) {
     const fullUrl = `${chosenServer.replace(/\/$/, '')}${chosenPath}`
-    return `fetch(${JSON.stringify(fullUrl)}, {\n  method: '${chosenMethod.toUpperCase()}',\n  headers: {\n    'Content-Type': 'application/json'\n  }\n})\n  .then((response) => response.json())\n  .then((data) => console.log(data))\n  .catch((error) => console.error(error));`
-  }, [chosenServer, chosenPath, chosenMethod])
+    generatedRequest = `fetch(${JSON.stringify(fullUrl)}, {\n  method: '${chosenMethod.toUpperCase()}',\n  headers: {\n    'Content-Type': 'application/json'\n  }\n})\n  .then((response) => response.json())\n  .then((data) => console.log(data))\n  .catch((error) => console.error(error));`
+  }
 
   return (
     <div className="tool-shell" style={{ maxWidth: '100%' }}>
