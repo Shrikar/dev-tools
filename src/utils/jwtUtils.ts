@@ -5,7 +5,8 @@ function base64UrlDecode(str: string){
   try{
     return JSON.parse(decodeURIComponent(escape(atob(str))))
   }catch{
-    try{ return JSON.parse(Buffer.from(str, 'base64').toString('utf8')) }catch(e){ throw new Error('Invalid JWT payload') }
+    const globalAny = globalThis as any
+    try{ return JSON.parse(globalAny.Buffer.from(str, 'base64').toString('utf8')) }catch(e){ throw new Error('Invalid JWT payload') }
   }
 }
 
