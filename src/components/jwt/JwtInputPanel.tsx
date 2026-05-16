@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import MonacoTextEditor from '../editor/MonacoTextEditor'
 import StatusBadge from './StatusBadge'
 
 interface JwtInputPanelProps {
@@ -44,12 +45,9 @@ export default function JwtInputPanel({ token, onTokenChange, invalidMessage, pa
         </div>
       </div>
 
-      <textarea
-        className="jwt-textarea"
-        value={token}
-        onChange={(event) => onTokenChange(event.target.value)}
-        placeholder="Paste your JWT here"
-      />
+      <div className="jwt-textarea">
+        <MonacoTextEditor value={token} onChange={onTokenChange} language="plaintext" height="280px" />
+      </div>
 
       <div className="jwt-chip-row">
         <span className={`jwt-chip ${parts ? 'header' : 'invalid'}`}>Header</span>

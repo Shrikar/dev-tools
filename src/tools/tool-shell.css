@@ -22,6 +22,14 @@
   padding: 16px;
 }
 
+.monaco-field {
+  width: 100%;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0b1120;
+}
+
 .tool-input,
 .tool-output,
 .tool-select {

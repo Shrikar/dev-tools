@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import ReactJson from 'react-json-view'
+import MonacoTextEditor from '../components/editor/MonacoTextEditor'
 import { composePath, resolveJsonPath } from '../utils/jsonPathUtils'
 import { formatJSON, validateJSON } from '../utils/jsonUtils'
 import './tool-shell.css'
@@ -42,27 +43,21 @@ export default function JSONPathTool() {
       <p>Click any JSON node to capture its path. Enter a path to resolve matching data.</p>
 
       <section className="tool-card">
-        <textarea
-          className="tool-input"
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder="Paste JSON"
-          rows={12}
-        />
+        <MonacoTextEditor value={input} onChange={setInput} height="320px" language="json" />
         {parsed.error && <div style={{ marginTop: 10, color: '#fda4af' }}>{parsed.error}</div>}
       </section>
 
       <section className="tool-card">
         <div style={{ display: 'grid', gap: 10 }}>
           <label style={{ fontSize: 13, color: '#a5b4fc' }}>Selected path</label>
-          <input className="tool-input" value={selectedPath} readOnly placeholder="Click a node in the JSON viewer" />
+          <MonacoTextEditor value={selectedPath} readOnly height="74px" language="plaintext" />
         </div>
       </section>
 
       <section className="tool-card">
         <div style={{ display: 'grid', gap: 10 }}>
           <label style={{ fontSize: 13, color: '#a5b4fc' }}>Path input (example: user.addresses[0].city)</label>
-          <input className="tool-input" value={pathInput} onChange={(event) => setPathInput(event.target.value)} />
+          <MonacoTextEditor value={pathInput} onChange={setPathInput} height="74px" language="plaintext" />
           <div className="tool-actions">
             <button className="tool-button" onClick={handleResolve}>
               Resolve Path
@@ -72,7 +67,7 @@ export default function JSONPathTool() {
             </button>
           </div>
           {pathError && <div style={{ color: '#fda4af' }}>{pathError}</div>}
-          {pathResult && <pre className="tool-output">{pathResult}</pre>}
+          {pathResult && <MonacoTextEditor value={pathResult} readOnly height="180px" language="json" />}
         </div>
       </section>
 

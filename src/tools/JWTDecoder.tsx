@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import MonacoTextEditor from '../components/editor/MonacoTextEditor'
 import { decodeJWT } from '../utils/jwtUtils'
 
 export default function JWTDecoder(){
@@ -23,7 +24,7 @@ export default function JWTDecoder(){
   return (
     <div>
       <h1>JWT Decoder</h1>
-      <textarea value={token} onChange={(e)=>setToken(e.target.value)} rows={4} style={{width:'100%'}} />
+      <MonacoTextEditor value={token} onChange={setToken} height="160px" language="plaintext" />
       <div style={{marginTop:8}}>
         <button onClick={handleDecode}>Decode</button>
       </div>

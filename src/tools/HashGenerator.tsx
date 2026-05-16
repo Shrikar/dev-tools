@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import MonacoTextEditor from '../components/editor/MonacoTextEditor'
 import { md5, sha256, sha512 } from '../utils/hashUtils'
 import './tool-shell.css'
 
@@ -17,7 +18,7 @@ export default function HashGenerator() {
     <div className="tool-shell">
       <h1>Hash Generator</h1>
       <div className="tool-card">
-        <textarea className="tool-input" value={input} onChange={(e) => setInput(e.target.value)} rows={6} />
+        <MonacoTextEditor value={input} onChange={setInput} height="220px" language="plaintext" />
         <div className="tool-actions">
           <select className="tool-select" value={algo} onChange={(e) => setAlgo(e.target.value)} style={{ maxWidth: 170 }}>
             <option value="sha256">SHA-256</option>
@@ -29,7 +30,9 @@ export default function HashGenerator() {
           </button>
         </div>
       </div>
-      <pre className="tool-output tool-card">{out}</pre>
+      <div className="tool-card">
+        <MonacoTextEditor value={out} readOnly height="180px" language="plaintext" />
+      </div>
     </div>
   )
 }

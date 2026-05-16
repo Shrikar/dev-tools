@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import MonacoTextEditor from '../components/editor/MonacoTextEditor'
 import { base64Decode, base64Encode } from '../utils/base64'
 import './tool-shell.css'
 
@@ -10,7 +11,7 @@ export default function Base64Tool() {
     <div className="tool-shell">
       <h1>Base64 Encode / Decode</h1>
       <div className="tool-card">
-        <textarea className="tool-input" value={input} onChange={(e) => setInput(e.target.value)} rows={8} />
+        <MonacoTextEditor value={input} onChange={setInput} height="220px" language="plaintext" />
         <div className="tool-actions">
           <button className="tool-button" onClick={() => setOutput(base64Encode(input))}>
             Encode
@@ -20,7 +21,9 @@ export default function Base64Tool() {
           </button>
         </div>
       </div>
-      <pre className="tool-output tool-card">{output}</pre>
+      <div className="tool-card">
+        <MonacoTextEditor value={output} readOnly height="220px" language="plaintext" />
+      </div>
     </div>
   )
 }

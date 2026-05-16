@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import MonacoTextEditor from '../components/editor/MonacoTextEditor'
 import { formatJSON, minifyJSON, sortJSONKeys, validateJSON } from '../utils/jsonUtils'
 import './tool-shell.css'
 
@@ -24,13 +25,7 @@ export default function JSONFormatter() {
       <p>Validate and transform JSON with format, minify, and sorted-key output.</p>
       <div className="tool-grid">
         <section className="tool-card">
-          <textarea
-            className="tool-input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            rows={16}
-            placeholder="Paste JSON input"
-          />
+          <MonacoTextEditor value={input} onChange={setInput} height="420px" language="json" />
           <div className="tool-actions">
             <button className="tool-button" onClick={() => runTransform(formatJSON)}>
               Format
@@ -44,7 +39,7 @@ export default function JSONFormatter() {
           </div>
         </section>
         <section className="tool-card">
-          {error ? <div style={{ color: '#fda4af' }}>{error}</div> : <pre className="tool-output">{output}</pre>}
+          {error ? <div style={{ color: '#fda4af' }}>{error}</div> : <MonacoTextEditor value={output} readOnly height="420px" language="json" />}
         </section>
       </div>
     </div>

@@ -121,22 +121,14 @@
   border-color: transparent;
 }
 
-.json-editor-textarea {
+.json-editor-monaco {
   flex: 1;
   min-height: 60vh;
   width: 100%;
   min-width: 0;
-  resize: vertical;
-  font-family: var(--mono);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  padding: 18px;
-  color: #e5e7eb;
-  background: #020617;
   border: 1px solid #334155;
   border-radius: 20px;
-  box-sizing: border-box;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .compare-actions {

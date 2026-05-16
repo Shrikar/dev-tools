@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import MonacoTextEditor from '../components/editor/MonacoTextEditor'
 import { urlDecode, urlEncode } from '../utils/urlUtils'
 import './tool-shell.css'
 
@@ -10,7 +11,7 @@ export default function URLEncodeDecode() {
     <div className="tool-shell">
       <h1>URL Encode / Decode</h1>
       <div className="tool-card">
-        <textarea className="tool-input" value={input} onChange={(e) => setInput(e.target.value)} rows={6} />
+        <MonacoTextEditor value={input} onChange={setInput} height="220px" language="plaintext" />
         <div className="tool-actions">
           <button className="tool-button" onClick={() => setOut(urlEncode(input))}>
             Encode
@@ -20,7 +21,9 @@ export default function URLEncodeDecode() {
           </button>
         </div>
       </div>
-      <pre className="tool-output tool-card">{out}</pre>
+      <div className="tool-card">
+        <MonacoTextEditor value={out} readOnly height="220px" language="plaintext" />
+      </div>
     </div>
   )
 }

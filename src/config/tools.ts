@@ -36,6 +36,27 @@ export const tools: ToolConfig[] = [
     description: 'Click JSON fields to capture paths and resolve values by path.',
   },
   {
+    name: 'JSON Escape',
+    path: '/json-escape',
+    icon: '\\"',
+    title: 'JSON Escape Java String',
+    description: 'Escape JSON so it can be pasted as a Java-style string literal.',
+  },
+  {
+    name: 'YAML ↔ JSON',
+    path: '/yaml-json-converter',
+    icon: 'YJ',
+    title: 'YAML JSON Converter',
+    description: 'Convert between YAML and JSON formats.',
+  },
+  {
+    name: 'Cron Helper',
+    path: '/cron-expression-helper',
+    icon: 'CR',
+    title: 'Cron Expression Helper',
+    description: 'Validate and describe 5-part cron expressions.',
+  },
+  {
     name: 'JWT Decoder',
     path: '/jwt-decoder',
     icon: 'JWT',

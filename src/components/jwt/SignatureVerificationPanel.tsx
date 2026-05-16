@@ -1,3 +1,4 @@
+import MonacoTextEditor from '../editor/MonacoTextEditor'
 import StatusBadge from './StatusBadge'
 
 interface SignatureVerificationPanelProps {
@@ -40,12 +41,14 @@ export default function SignatureVerificationPanel({
         {hasValidJwt ? 'Signature verification is computed locally in your browser.' : 'A valid JWT decode is required to verify signatures.'}
       </div>
 
-      <textarea
-        className="jwt-small-textarea"
-        value={secret}
-        onChange={(event) => onSecretChange(event.target.value)}
-        placeholder="Enter secret for HS256 verification"
-      />
+      <div className="jwt-small-textarea">
+        <MonacoTextEditor
+          value={secret}
+          onChange={onSecretChange}
+          language="plaintext"
+          height="120px"
+        />
+      </div>
 
       <div className="jwt-button-row">
         <label className="jwt-button" style={{ alignItems: 'center', display: 'inline-flex' }}>
