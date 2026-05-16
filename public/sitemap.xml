@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://shrikar.github.io/dev-tools/</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/json-formatter</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/json-compare</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/json-path</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/json-escape</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/yaml-json-converter</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/cron-expression-helper</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/jwt-decoder</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/base64</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/hash-generator</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/uuid-generator</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/url-encode-decode</loc></url>
+  <url><loc>https://shrikar.github.io/dev-tools/timestamp-converter</loc></url>
+</urlset>

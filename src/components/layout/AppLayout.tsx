@@ -10,7 +10,11 @@ export default function AppLayout() {
 
   return (
     <div className="app-layout">
-      <PageMeta title={routeMeta?.title ?? defaultMeta.title} description={routeMeta?.description ?? defaultMeta.description} />
+      <PageMeta
+        title={routeMeta?.title ?? defaultMeta.title}
+        description={routeMeta?.description ?? defaultMeta.description}
+        path={pathname}
+      />
       <Sidebar />
       <main className="app-content">
         <div className="tool-page">

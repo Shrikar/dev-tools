@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import AppLayout from './components/layout/AppLayout'
 import HomePage from './pages/HomePage'
@@ -17,7 +17,7 @@ import TimestampConverterPage from './pages/TimestampConverterPage'
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
@@ -35,7 +35,7 @@ function App() {
           <Route path="/timestamp-converter" element={<TimestampConverterPage />} />
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
