@@ -15,6 +15,13 @@ export const tools: ToolConfig[] = [
     description: 'Privacy-first browser utilities for JSON, JWT, Base64, hashes, UUID, URLs, and timestamps.',
   },
   {
+    name: 'REST Client',
+    path: '/rest-client',
+    icon: 'API',
+    title: 'REST Client',
+    description: 'Browser-only HTTP client with .http upload/download support.',
+  },
+  {
     name: 'JSON Formatter',
     path: '/json-formatter',
     icon: '{}',

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { tools } from '../config/tools'
+import { getToolUsageCount } from '../utils/toolUsageStats'
 
 export default function HomePage() {
   const featured = tools.filter((tool) => tool.path !== '/')
@@ -38,6 +39,7 @@ export default function HomePage() {
           >
             <strong>{tool.name}</strong>
             <span style={{ fontSize: 13, color: '#94a3b8' }}>{tool.description}</span>
+            <span style={{ fontSize: 12, color: '#93c5fd' }}>Used {getToolUsageCount(tool.path)} times</span>
           </Link>
         ))}
       </section>

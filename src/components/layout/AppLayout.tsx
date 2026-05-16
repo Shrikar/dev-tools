@@ -1,12 +1,18 @@
 import { Outlet, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import Sidebar from './Sidebar'
 import './AppLayout.css'
 import PageMeta from '../common/PageMeta'
 import { defaultMeta, tools } from '../../config/tools'
+import { incrementToolUsage } from '../../utils/toolUsageStats'
 
 export default function AppLayout() {
   const { pathname } = useLocation()
   const routeMeta = tools.find((tool) => tool.path === pathname)
+
+  useEffect(() => {
+    incrementToolUsage(pathname)
+  }, [pathname])
 
   return (
     <div className="app-layout">
