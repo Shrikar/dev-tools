@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+import JwtDecoderPage from './pages/JwtDecoderPage'
 import JSONFormatter from './tools/JSONFormatter'
 import JSONCompare from './tools/JSONCompare'
-import JWTDecoder from './tools/JWTDecoder'
 import Base64Tool from './tools/Base64Tool'
 import HashGenerator from './tools/HashGenerator'
 import UUIDGenerator from './tools/UUIDGenerator'
@@ -11,7 +11,7 @@ import TimestampConverter from './tools/TimestampConverter'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/dev-tools">
       <div className="app-shell">
         <nav className="sidebar">
           <h2>Dev Tools</h2>
@@ -32,7 +32,7 @@ function App() {
             <Route path="/" element={<div>Choose a tool from the sidebar.</div>} />
             <Route path="/json-formatter" element={<JSONFormatter />} />
             <Route path="/json-compare" element={<JSONCompare />} />
-            <Route path="/jwt-decoder" element={<JWTDecoder />} />
+            <Route path="/jwt-decoder" element={<JwtDecoderPage />} />
             <Route path="/base64" element={<Base64Tool />} />
             <Route path="/hash" element={<HashGenerator />} />
             <Route path="/uuid" element={<UUIDGenerator />} />
