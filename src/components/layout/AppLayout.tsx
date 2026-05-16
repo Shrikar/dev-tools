@@ -7,7 +7,9 @@ export default function AppLayout() {
     <div className="app-layout">
       <Sidebar />
       <main className="app-content">
-        <Outlet />
+        <div className="tool-page">
+          <Outlet />
+        </div>
       </main>
     </div>
   )

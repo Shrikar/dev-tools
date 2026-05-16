@@ -111,6 +111,15 @@
   box-sizing: border-box;
 }
 
+.tool-page {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 @media (max-width: 900px) {
   .app-layout {
     flex-direction: column;
