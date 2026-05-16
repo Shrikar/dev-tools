@@ -5,8 +5,10 @@ import HomePage from './pages/HomePage'
 import JsonSuitePage from './pages/JsonSuitePage'
 import JwtSuitePage from './pages/JwtSuitePage'
 import CronSuitePage from './pages/CronSuitePage'
+import ApiSuitePage from './pages/ApiSuitePage'
 import YamlJsonConverterPage from './pages/YamlJsonConverterPage'
 import RestClientPage from './pages/RestClientPage'
+import ShellPage from './pages/ShellPage'
 import Base64Page from './pages/Base64Page'
 import HashGeneratorPage from './pages/HashGeneratorPage'
 import UuidGeneratorPage from './pages/UuidGeneratorPage'
@@ -30,7 +32,11 @@ function App() {
           <Route path="/cron" element={<Navigate to="/cron/helper" replace />} />
           <Route path="/cron/:tool" element={<CronSuitePage />} />
 
+          <Route path="/api" element={<Navigate to="/api/curl-converter" replace />} />
+          <Route path="/api/:tool" element={<ApiSuitePage />} />
+
           <Route path="/rest-client" element={<RestClientPage />} />
+          <Route path="/shell" element={<ShellPage />} />
           <Route path="/yaml-json-converter" element={<YamlJsonConverterPage />} />
           <Route path="/base64" element={<Base64Page />} />
           <Route path="/hash-generator" element={<HashGeneratorPage />} />

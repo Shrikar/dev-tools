@@ -1,7 +1,8 @@
 .tool-shell {
   display: grid;
-  gap: 16px;
-  max-width: 1080px;
+  gap: 12px;
+  width: 100%;
+  max-width: none;
 }
 
 .tool-shell h1 {
@@ -15,19 +16,47 @@
   color: #94a3b8;
 }
 
+.tool-label {
+  display: block;
+  color: #93c5fd;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
 .tool-card {
   background: #0f172a;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 16px;
-  padding: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 14px;
+  padding: 12px;
 }
 
 .monaco-field {
   width: 100%;
-  border: 1px solid #334155;
-  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 8px;
   overflow: hidden;
   background: #0b1120;
+}
+
+.text-editor-wrap {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  height: 100%;
+}
+
+.text-editor-gutter {
+  margin: 0;
+  padding: 10px 8px;
+  color: #64748b;
+  background: rgba(15, 23, 42, 0.85);
+  border-right: 1px solid rgba(148, 163, 184, 0.1);
+  text-align: right;
+  user-select: none;
+  pointer-events: none;
+  font-size: 13px;
+  line-height: 1.55;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: pre;
 }
 
 .text-editor-area {
@@ -51,8 +80,8 @@
 .brace-json {
   margin: 0;
   min-height: 240px;
-  border: 1px solid #334155;
-  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 8px;
   padding: 10px 12px;
   background: #0b1120;
   color: #e2e8f0;
@@ -69,8 +98,8 @@
 .tool-select {
   width: 100%;
   box-sizing: border-box;
-  border-radius: 12px;
-  border: 1px solid #334155;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
   background: #0b1120;
   color: #e2e8f0;
   padding: 10px 12px;
@@ -86,7 +115,7 @@
 .tool-actions {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 8px;
   flex-wrap: wrap;
 }
 
@@ -107,7 +136,9 @@
 .tool-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
+  width: 100%;
+  align-items: start;
 }
 
 @media (max-width: 860px) {

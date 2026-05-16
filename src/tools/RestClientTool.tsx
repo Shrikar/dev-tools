@@ -221,7 +221,7 @@ export default function RestClientTool() {
             <MonacoTextEditor
               value={rawRequest}
               onChange={(next) => selected && updateSelected((item) => ({ ...item, raw: next, updatedAt: Date.now() }))}
-              height="320px"
+              height="72vh"
               language="plaintext"
             />
 
@@ -243,7 +243,7 @@ export default function RestClientTool() {
             <div style={{ color: '#cbd5e1' }}>{statusLine}</div>
             {error && <div style={{ color: '#fda4af' }}>{error}</div>}
             <MonacoTextEditor value={responseHeaders} readOnly height="120px" language="plaintext" />
-            <MonacoTextEditor value={responseBody} readOnly height="260px" language="plaintext" />
+            <MonacoTextEditor value={responseBody} readOnly height="42vh" language="plaintext" />
             {responseMode && <CollapsibleDataView input={responseBody} mode={responseMode} />}
             <div className="tool-actions">
               <button className="tool-button secondary" onClick={exportResponse}>

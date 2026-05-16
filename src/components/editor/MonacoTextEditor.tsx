@@ -1,4 +1,4 @@
-import type { KeyboardEvent } from 'react'
+import { useMemo, useRef, useState, type KeyboardEvent, type UIEvent } from 'react'
 
 interface MonacoTextEditorProps {
   value: string
@@ -19,6 +19,14 @@ export default function MonacoTextEditor({
   language: _language = 'plaintext',
   readOnly = false,
 }: MonacoTextEditorProps) {
+  const [scrollTop, setScrollTop] = useState(0)
+  const textRef = useRef<HTMLTextAreaElement | null>(null)
+
+  const lineNumbers = useMemo(() => {
+    const count = Math.max(1, value.split('\n').length)
+    return Array.from({ length: count }, (_, index) => index + 1).join('\n')
+  }, [value])
+
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (readOnly) return
 
@@ -51,16 +59,27 @@ export default function MonacoTextEditor({
     }
   }
 
+  const handleScroll = (event: UIEvent<HTMLTextAreaElement>) => {
+    setScrollTop(event.currentTarget.scrollTop)
+  }
+
   return (
     <div className="monaco-field" style={{ height }}>
-      <textarea
-        className="text-editor-area"
-        value={value}
-        onChange={(event) => onChange?.(event.target.value)}
-        onKeyDown={handleKeyDown}
-        readOnly={readOnly}
-        spellCheck={false}
-      />
+      <div className="text-editor-wrap">
+        <pre className="text-editor-gutter" style={{ transform: `translateY(-${scrollTop}px)` }}>
+          {lineNumbers}
+        </pre>
+        <textarea
+          ref={textRef}
+          className="text-editor-area"
+          value={value}
+          onChange={(event) => onChange?.(event.target.value)}
+          onKeyDown={handleKeyDown}
+          onScroll={handleScroll}
+          readOnly={readOnly}
+          spellCheck={false}
+        />
+      </div>
     </div>
   )
 }

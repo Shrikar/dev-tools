@@ -57,7 +57,7 @@ export default function YamlJsonConverterTool() {
       <p>Convert between YAML and JSON with normalized formatting.</p>
       <div className="tool-grid">
         <section className="tool-card">
-          <MonacoTextEditor value={input} onChange={setInput} height="380px" language="yaml" />
+          <MonacoTextEditor value={input} onChange={setInput} height="72vh" language="yaml" />
           <div className="tool-actions">
             <button className="tool-button" onClick={runYamlToJson}>YAML → JSON</button>
             <button className="tool-button secondary" onClick={runJsonToYaml}>JSON → YAML</button>
@@ -68,7 +68,7 @@ export default function YamlJsonConverterTool() {
         </section>
         <section>
           <div className="tool-card">
-            <MonacoTextEditor value={output} readOnly height="380px" language={outputMode === 'json' ? 'json' : 'yaml'} />
+            <MonacoTextEditor value={output} readOnly height="72vh" language={outputMode === 'json' ? 'json' : 'yaml'} />
           </div>
           <CollapsibleDataView input={output} mode={outputMode} />
         </section>

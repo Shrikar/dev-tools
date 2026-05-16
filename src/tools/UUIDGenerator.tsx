@@ -95,18 +95,32 @@ function uuidV5(name: string, namespaceUuid: string) {
   return uuidFromBytes(bytes, 5)
 }
 
+function uuidV7() {
+  const bytes = randomBytes(16)
+  const now = Date.now()
+
+  bytes[0] = (now / 0x10000000000) & 0xff
+  bytes[1] = (now / 0x100000000) & 0xff
+  bytes[2] = (now >>> 24) & 0xff
+  bytes[3] = (now >>> 16) & 0xff
+  bytes[4] = (now >>> 8) & 0xff
+  bytes[5] = now & 0xff
+
+  return uuidFromBytes(bytes, 7)
+}
+
 function validateUuid(value: string) {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value.trim())
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-7][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value.trim())
 }
 
 function getUuidVersion(value: string) {
-  const match = value.trim().match(/^[0-9a-f]{8}-[0-9a-f]{4}-([1-5])[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i)
+  const match = value.trim().match(/^[0-9a-f]{8}-[0-9a-f]{4}-([1-7])[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i)
   return match ? Number(match[1]) : null
 }
 
 export default function UUIDGenerator() {
   const [output, setOutput] = useState('')
-  const [versionChoice, setVersionChoice] = useState<'1' | '3' | '4' | '5'>('4')
+  const [versionChoice, setVersionChoice] = useState<'1' | '3' | '4' | '5' | '7'>('4')
   const [name, setName] = useState('example.com')
   const [namespace, setNamespace] = useState<'DNS' | 'URL' | 'OID' | 'X500'>('DNS')
   const [validatorInput, setValidatorInput] = useState('')
@@ -143,6 +157,8 @@ export default function UUIDGenerator() {
       id = uuidV3(name || 'example.com', namespaceMap[namespace])
     } else if (versionChoice === '5') {
       id = uuidV5(name || 'example.com', namespaceMap[namespace])
+    } else if (versionChoice === '7') {
+      id = uuidV7()
     }
 
     setOutput(id)
@@ -192,13 +208,14 @@ export default function UUIDGenerator() {
               <span style={labelStyle}>UUID version</span>
               <select
                 value={versionChoice}
-                onChange={(event) => setVersionChoice(event.target.value as '1' | '3' | '4' | '5')}
+                onChange={(event) => setVersionChoice(event.target.value as '1' | '3' | '4' | '5' | '7')}
                 style={inputStyle}
               >
                 <option value="1">Version 1</option>
                 <option value="3">Version 3</option>
                 <option value="4">Version 4</option>
                 <option value="5">Version 5</option>
+                <option value="7">Version 7</option>
               </select>
             </label>
 

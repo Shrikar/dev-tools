@@ -105,7 +105,7 @@ export default function JSONPathTool() {
       <p>Click any JSON node to capture its path. Enter a path to resolve matching data.</p>
 
       <section className="tool-card">
-        <MonacoTextEditor value={input} onChange={setInput} height="320px" language="json" />
+        <MonacoTextEditor value={input} onChange={setInput} height="72vh" language="json" />
         {parsed.error && <div style={{ marginTop: 10, color: '#fda4af' }}>{parsed.error}</div>}
       </section>
 
@@ -129,7 +129,7 @@ export default function JSONPathTool() {
             </button>
           </div>
           {pathError && <div style={{ color: '#fda4af' }}>{pathError}</div>}
-          {pathResult && <MonacoTextEditor value={pathResult} readOnly height="180px" language="json" />}
+          {pathResult && <MonacoTextEditor value={pathResult} readOnly height="32vh" language="json" />}
           {pathResult && <CollapsibleDataView input={pathResult} mode="json" />}
         </div>
       </section>

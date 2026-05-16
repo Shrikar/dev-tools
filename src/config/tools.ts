@@ -68,9 +68,24 @@ export const categories: CategoryConfig[] = [
       { id: 'cron.helper', name: 'Parse Expression', slug: 'helper', title: 'Cron Expression Parser', description: 'Parse and explain cron expressions.' },
     ],
   },
+  {
+    id: 'api',
+    name: 'API Suite',
+    path: '/api',
+    icon: 'AP',
+    title: 'API Suite',
+    description: 'Converters and explorers for cURL, GraphQL, and OpenAPI workflows.',
+    defaultToolSlug: 'curl-converter',
+    tools: [
+      { id: 'api.curl-converter', name: 'cURL Converter', slug: 'curl-converter', title: 'cURL Fetch HTTPie Converter', description: 'Convert cURL commands to fetch and HTTPie formats.' },
+      { id: 'api.graphql', name: 'GraphQL', slug: 'graphql', title: 'GraphQL Runner Explorer', description: 'Run GraphQL queries and inspect schema introspection.' },
+      { id: 'api.openapi', name: 'OpenAPI', slug: 'openapi', title: 'OpenAPI Viewer Request Generator', description: 'Inspect OpenAPI specs and generate request templates.' },
+    ],
+  },
 ]
 
 export const standaloneTools: StandaloneToolConfig[] = [
+  { id: 'shell', name: 'Shell', path: '/shell', icon: '>_', title: 'Dev Shell', description: 'Terminal-style command interface for tool navigation and quick transforms.' },
   { id: 'rest-client', name: 'REST Client', path: '/rest-client', icon: 'API', title: 'REST Client', description: 'Browser-only HTTP client with .http upload/download support.' },
   { id: 'yaml-json', name: 'YAML ↔ JSON', path: '/yaml-json-converter', icon: 'YJ', title: 'YAML JSON Converter', description: 'Convert between YAML and JSON formats.' },
   { id: 'base64', name: 'Base64', path: '/base64', icon: '64', title: 'Base64 Encode Decode', description: 'Encode and decode Base64 strings.' },
@@ -96,6 +111,7 @@ export const legacyPathToToolId: Record<string, string> = {
   '/json-escape': 'json.escape',
   '/jwt-decoder': 'jwt.decoder',
   '/cron-expression-helper': 'cron.helper',
+  '/shell': 'shell',
   '/rest-client': 'rest-client',
   '/yaml-json-converter': 'yaml-json',
   '/base64': 'base64',

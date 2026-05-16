@@ -72,7 +72,7 @@
   grid-template-columns: minmax(0, 1fr) 160px minmax(0, 1fr);
   gap: 24px;
   width: 100%;
-  align-items: stretch;
+  align-items: start;
 }
 
 .json-editor-panel {
@@ -126,8 +126,8 @@
   min-height: 60vh;
   width: 100%;
   min-width: 0;
-  border: 1px solid #334155;
-  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 12px;
   overflow: hidden;
 }
 

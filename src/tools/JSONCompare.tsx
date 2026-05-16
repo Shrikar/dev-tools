@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import MonacoTextEditor from '../components/editor/MonacoTextEditor'
 import { formatJSON, validateJSON } from '../utils/jsonUtils'
+import '../pages/JsonComparePage.css'
 
 const SAMPLE_LEFT = `{
   "name": "Alice",
@@ -258,7 +259,7 @@ export default function JSONCompare() {
             </button>
           </div>
           <div className="json-editor-monaco">
-            <MonacoTextEditor value={left} onChange={setLeft} height="60vh" language="json" />
+            <MonacoTextEditor value={left} onChange={setLeft} height="76vh" language="json" />
           </div>
           {leftParse.error && <div className="json-error-banner">{leftParse.error}</div>}
         </section>
@@ -307,7 +308,7 @@ export default function JSONCompare() {
             </button>
           </div>
           <div className="json-editor-monaco">
-            <MonacoTextEditor value={right} onChange={setRight} height="60vh" language="json" />
+            <MonacoTextEditor value={right} onChange={setRight} height="76vh" language="json" />
           </div>
           {rightParse.error && <div className="json-error-banner">{rightParse.error}</div>}
         </section>
