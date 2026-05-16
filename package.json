@@ -18,7 +18,6 @@
     "react-json-view": "^1.21.3",
     "crypto-js": "^4.1.1",
     "monaco-editor": "^0.40.0",
-    "@monaco-editor/react": "^5.0.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
