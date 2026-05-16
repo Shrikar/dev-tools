@@ -1,30 +1,52 @@
 import { useState } from 'react'
-import { formatJSON, validateJSON } from '../utils/jsonUtils'
+import { formatJSON, minifyJSON, sortJSONKeys, validateJSON } from '../utils/jsonUtils'
+import './tool-shell.css'
 
 export default function JSONFormatter() {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [error, setError] = useState<string | null>(null)
 
-  function handleFormat() {
+  const runTransform = (transform: (value: unknown) => string) => {
     setError(null)
     try {
       const parsed = validateJSON(input)
-      setOutput(formatJSON(parsed))
-    } catch (e: any) {
-      setError(e.message)
+      setOutput(transform(parsed))
+    } catch (err) {
+      setError((err as Error).message)
       setOutput('')
     }
   }
 
   return (
-    <div>
-      <h1>JSON Formatter / Validator</h1>
-      <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={12} style={{width:'100%'}} />
-      <div style={{marginTop:8}}>
-        <button onClick={handleFormat}>Format / Validate</button>
+    <div className="tool-shell">
+      <h1>JSON Formatter</h1>
+      <p>Validate and transform JSON with format, minify, and sorted-key output.</p>
+      <div className="tool-grid">
+        <section className="tool-card">
+          <textarea
+            className="tool-input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            rows={16}
+            placeholder="Paste JSON input"
+          />
+          <div className="tool-actions">
+            <button className="tool-button" onClick={() => runTransform(formatJSON)}>
+              Format
+            </button>
+            <button className="tool-button secondary" onClick={() => runTransform(minifyJSON)}>
+              Minify
+            </button>
+            <button className="tool-button secondary" onClick={() => runTransform((value) => formatJSON(sortJSONKeys(value)))}>
+              Sort Keys
+            </button>
+          </div>
+        </section>
+        <section className="tool-card">
+          {error ? <div style={{ color: '#fda4af' }}>{error}</div> : <pre className="tool-output">{output}</pre>}
+        </section>
       </div>
-      {error ? <div style={{color:'red'}}>{error}</div> : <pre>{output}</pre>}
     </div>
   )
 }

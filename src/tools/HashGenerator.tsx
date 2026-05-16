@@ -1,30 +1,35 @@
 import { useState } from 'react'
-import { sha256, sha512, md5 } from '../utils/hashUtils'
+import { md5, sha256, sha512 } from '../utils/hashUtils'
+import './tool-shell.css'
 
-export default function HashGenerator(){
+export default function HashGenerator() {
   const [input, setInput] = useState('')
   const [algo, setAlgo] = useState('sha256')
   const [out, setOut] = useState('')
 
-  function gen(){
-    if(algo==='sha256') setOut(sha256(input))
-    else if(algo==='sha512') setOut(sha512(input))
+  function generate() {
+    if (algo === 'sha256') setOut(sha256(input))
+    else if (algo === 'sha512') setOut(sha512(input))
     else setOut(md5(input))
   }
 
   return (
-    <div>
+    <div className="tool-shell">
       <h1>Hash Generator</h1>
-      <textarea value={input} onChange={(e)=>setInput(e.target.value)} rows={4} style={{width:'100%'}} />
-      <div style={{marginTop:8}}>
-        <select value={algo} onChange={(e)=>setAlgo(e.target.value)}>
-          <option value="sha256">SHA-256</option>
-          <option value="sha512">SHA-512</option>
-          <option value="md5">MD5</option>
-        </select>
-        <button onClick={gen} style={{marginLeft:8}}>Generate</button>
+      <div className="tool-card">
+        <textarea className="tool-input" value={input} onChange={(e) => setInput(e.target.value)} rows={6} />
+        <div className="tool-actions">
+          <select className="tool-select" value={algo} onChange={(e) => setAlgo(e.target.value)} style={{ maxWidth: 170 }}>
+            <option value="sha256">SHA-256</option>
+            <option value="sha512">SHA-512</option>
+            <option value="md5">MD5</option>
+          </select>
+          <button className="tool-button" onClick={generate}>
+            Generate
+          </button>
+        </div>
       </div>
-      <pre style={{marginTop:8}}>{out}</pre>
+      <pre className="tool-output tool-card">{out}</pre>
     </div>
   )
 }

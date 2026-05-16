@@ -1,22 +1,46 @@
+import { Link } from 'react-router-dom'
+import { tools } from '../config/tools'
+
 export default function HomePage() {
+  const featured = tools.filter((tool) => tool.path !== '/')
+
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto' }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Welcome to Dev Tools</h1>
-      <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: 1.75 }}>
-        A set of privacy-first browser-only utilities for working with JSON, JWTs, Base64, hashes, UUIDs, URLs, and timestamps.
-      </p>
-      <div style={{ marginTop: '2rem', display: 'grid', gap: '1rem' }}>
-        <div style={{ padding: '20px', borderRadius: '18px', background: '#0f172a', border: '1px solid rgba(148, 163, 184, 0.12)' }}>
-          <h2 style={{ margin: 0, fontSize: '1.1rem' }}>Features</h2>
-          <ul style={{ marginTop: '12px', paddingLeft: '18px', color: '#cbd5e1' }}>
-            <li>Format and compare JSON</li>
-            <li>Decode JWTs securely in the browser</li>
-            <li>Encode/decode Base64</li>
-            <li>Generate hashes and UUIDs</li>
-            <li>Encode/decode URLs and convert timestamps</li>
-          </ul>
-        </div>
-      </div>
+    <div style={{ display: 'grid', gap: 18 }}>
+      <section
+        style={{
+          border: '1px solid rgba(148, 163, 184, 0.22)',
+          borderRadius: 18,
+          padding: 24,
+          background: 'linear-gradient(130deg, #111827 0%, #1f2937 60%, #0c4a6e 100%)',
+        }}
+      >
+        <h1 style={{ fontSize: '2.1rem', margin: 0 }}>Developer Utility Hub</h1>
+        <p style={{ color: '#cbd5e1', marginTop: 10, maxWidth: 800 }}>
+          Local-first utilities for JWT, hashing, JSON formatting/compare, Base64, UUID, URL, and timestamp workflows.
+        </p>
+      </section>
+
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 }}>
+        {featured.map((tool) => (
+          <Link
+            key={tool.path}
+            to={tool.path}
+            style={{
+              textDecoration: 'none',
+              borderRadius: 14,
+              border: '1px solid rgba(148, 163, 184, 0.16)',
+              background: '#0f172a',
+              color: '#e2e8f0',
+              padding: 14,
+              display: 'grid',
+              gap: 6,
+            }}
+          >
+            <strong>{tool.name}</strong>
+            <span style={{ fontSize: 13, color: '#94a3b8' }}>{tool.description}</span>
+          </Link>
+        ))}
+      </section>
     </div>
   )
 }

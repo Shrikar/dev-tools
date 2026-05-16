@@ -1,19 +1,26 @@
 import { useState } from 'react'
-import { urlEncode, urlDecode } from '../utils/urlUtils'
+import { urlDecode, urlEncode } from '../utils/urlUtils'
+import './tool-shell.css'
 
-export default function URLEncodeDecode(){
+export default function URLEncodeDecode() {
   const [input, setInput] = useState('')
   const [out, setOut] = useState('')
 
   return (
-    <div>
+    <div className="tool-shell">
       <h1>URL Encode / Decode</h1>
-      <textarea value={input} onChange={(e)=>setInput(e.target.value)} rows={4} style={{width:'100%'}} />
-      <div style={{marginTop:8}}>
-        <button onClick={()=>setOut(urlEncode(input))}>Encode</button>
-        <button onClick={()=>setOut(urlDecode(input))} style={{marginLeft:8}}>Decode</button>
+      <div className="tool-card">
+        <textarea className="tool-input" value={input} onChange={(e) => setInput(e.target.value)} rows={6} />
+        <div className="tool-actions">
+          <button className="tool-button" onClick={() => setOut(urlEncode(input))}>
+            Encode
+          </button>
+          <button className="tool-button secondary" onClick={() => setOut(urlDecode(input))}>
+            Decode
+          </button>
+        </div>
       </div>
-      <pre style={{marginTop:8}}>{out}</pre>
+      <pre className="tool-output tool-card">{out}</pre>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import AppLayout from './components/layout/AppLayout'
 import HomePage from './pages/HomePage'
 import JsonFormatterPage from './pages/JsonFormatterPage'
 import JsonComparePage from './pages/JsonComparePage'
+import JsonPathPage from './pages/JsonPathPage'
 import JwtDecoderPage from './pages/JwtDecoderPage'
 import Base64Page from './pages/Base64Page'
 import HashGeneratorPage from './pages/HashGeneratorPage'
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/json-formatter" element={<JsonFormatterPage />} />
           <Route path="/json-compare" element={<JsonComparePage />} />
+          <Route path="/json-path" element={<JsonPathPage />} />
           <Route path="/jwt-decoder" element={<JwtDecoderPage />} />
           <Route path="/base64" element={<Base64Page />} />
           <Route path="/hash-generator" element={<HashGeneratorPage />} />

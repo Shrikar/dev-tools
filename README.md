@@ -1,73 +1,50 @@
-# React + TypeScript + Vite
+# Dev Tools
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Privacy-first developer utilities that run entirely in your browser.
 
-Currently, two official plugins are available:
+## Included Tools
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- JWT Decoder and HS256 signature verification
+- Hash Generator (SHA-256, SHA-512, MD5)
+- JSON Formatter (format, minify, sorted keys)
+- JSON Compare
+- JSON Path Explorer (click-to-path + path-to-value)
+- Base64 Encode/Decode
+- UUID Generator and Validator
+- URL Encode/Decode
+- Timestamp Converter
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript
+- Vite + React Router (HashRouter for GitHub Pages)
+- Vitest for unit tests
+- GitHub Actions for CI + Pages deploy
 
-## Expanding the ESLint configuration
+## Local Development
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm ci
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Quality Checks
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run lint
+npm run test
+npm run build
 ```
+
+## Deployment
+
+- GitHub Pages deploys from `main` via `.github/workflows/deploy.yml`
+- Vite base path is set to `/dev-tools/`
+
+## Architecture Notes
+
+- `src/pages`: route-level pages
+- `src/tools`: tool feature components
+- `src/utils`: pure utility functions and tests
+- `src/components/layout`: app shell + navigation
+- `src/config/tools.ts`: navigation and SEO metadata source of truth
