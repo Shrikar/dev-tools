@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { tools } from '../../config/tools'
+import { categories, standaloneTools } from '../../config/tools'
 
 export default function Sidebar() {
   return (
@@ -11,12 +11,28 @@ export default function Sidebar() {
           <p>Browser-only utilities</p>
         </div>
       </div>
+
       <nav className="sidebar-nav">
-        {tools.map((tool) => (
+        <NavLink to="/" end className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}>
+          <span className="sidebar-icon">⌂</span>
+          <span>Home</span>
+        </NavLink>
+
+        {categories.map((category) => (
           <NavLink
-            key={tool.path}
+            key={category.id}
+            to={`${category.path}/${category.defaultToolSlug}`}
+            className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
+          >
+            <span className="sidebar-icon">{category.icon}</span>
+            <span>{category.name}</span>
+          </NavLink>
+        ))}
+
+        {standaloneTools.map((tool) => (
+          <NavLink
+            key={tool.id}
             to={tool.path}
-            end={tool.path === '/'}
             className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
           >
             <span className="sidebar-icon">{tool.icon}</span>

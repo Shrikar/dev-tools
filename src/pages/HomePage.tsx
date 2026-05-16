@@ -1,10 +1,26 @@
 import { Link } from 'react-router-dom'
-import { tools } from '../config/tools'
-import { getToolUsageCount } from '../utils/toolUsageStats'
+import { categories, standaloneTools } from '../config/tools'
+import { getSubToolUsageCount } from '../utils/toolUsageStats'
+
+const standaloneAsSubtools = standaloneTools.map((tool) => ({
+  id: tool.id,
+  name: tool.name,
+  description: tool.description,
+  path: tool.path,
+}))
+
+const groupedSubtools = categories.flatMap((category) =>
+  category.tools.map((tool) => ({
+    id: tool.id,
+    name: `${category.name} · ${tool.name}`,
+    description: tool.description,
+    path: `${category.path}/${tool.slug}`,
+  }))
+)
+
+const cards = [...groupedSubtools, ...standaloneAsSubtools]
 
 export default function HomePage() {
-  const featured = tools.filter((tool) => tool.path !== '/')
-
   return (
     <div style={{ display: 'grid', gap: 18 }}>
       <section
@@ -17,14 +33,14 @@ export default function HomePage() {
       >
         <h1 style={{ fontSize: '2.1rem', margin: 0 }}>Developer Utility Hub</h1>
         <p style={{ color: '#cbd5e1', marginTop: 10, maxWidth: 800 }}>
-          Local-first utilities for JWT, hashing, JSON formatting/compare, Base64, UUID, URL, and timestamp workflows.
+          Local-first grouped suites for JSON/JWT/Cron plus standalone REST, encoding, hashing, and conversion workflows.
         </p>
       </section>
 
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 }}>
-        {featured.map((tool) => (
+        {cards.map((tool) => (
           <Link
-            key={tool.path}
+            key={tool.id}
             to={tool.path}
             style={{
               textDecoration: 'none',
@@ -39,7 +55,7 @@ export default function HomePage() {
           >
             <strong>{tool.name}</strong>
             <span style={{ fontSize: 13, color: '#94a3b8' }}>{tool.description}</span>
-            <span style={{ fontSize: 12, color: '#93c5fd' }}>Used {getToolUsageCount(tool.path)} times</span>
+            <span style={{ fontSize: 12, color: '#93c5fd' }}>Used {getSubToolUsageCount(tool.id)} times</span>
           </Link>
         ))}
       </section>
