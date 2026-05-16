@@ -179,7 +179,7 @@ export default function UUIDGenerator() {
   return (
     <div style={{ width: '100%', maxWidth: '100%', color: '#e5e7eb' }}>
       <header style={{ marginBottom: 24 }}>
-        <h1 style={{ margin: 0, fontSize: '2.1rem', color: '#f973ac', fontFamily: 'Georgia, serif' }}>UUID Generator</h1>
+        <h1 style={{ margin: 0, fontSize: '2.1rem', color: '#60a5fa', fontFamily: 'inherit' }}>UUID Generator</h1>
         <p style={{ marginTop: 10, color: '#94a3b8', maxWidth: 760 }}>
           Generate UUID versions and validate existing UUID strings directly in the browser.
         </p>
@@ -208,7 +208,7 @@ export default function UUIDGenerator() {
               style={{
                 border: 'none',
                 borderRadius: 14,
-                background: '#f973ac',
+                background: '#60a5fa',
                 color: '#020617',
                 padding: '14px 18px',
                 fontWeight: 700,
@@ -247,7 +247,7 @@ export default function UUIDGenerator() {
       </section>
 
       <section style={sectionStyle}>
-        <h2 style={{ margin: 0, color: '#f973ac', fontSize: '1.35rem', fontFamily: 'Georgia, serif' }}>UUID Validator</h2>
+        <h2 style={{ margin: 0, color: '#60a5fa', fontSize: '1.35rem', fontFamily: 'inherit' }}>UUID Validator</h2>
         <p style={{ marginTop: 10, color: '#94a3b8' }}>Validate a UUID string and detect its version.</p>
 
         <div style={{ marginTop: 18, display: 'grid', gap: 14 }}>

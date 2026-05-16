@@ -203,11 +203,11 @@ export default function TimestampConverterPage() {
     <div style={{ padding: 24, color: '#e2e8f0', minHeight: '100%', background: '#020617' }}>
       <div style={{ maxWidth: 980, margin: '0 auto' }}>
         <header style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}>
-          <div style={{ fontSize: 32, lineHeight: 1, color: '#f973ac' }}>⏱</div>
+          <div style={{ fontSize: 32, lineHeight: 1, color: '#60a5fa' }}>⏱</div>
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 42, fontWeight: 800, color: '#f973ac', fontFamily: 'Georgia, serif' }}>Epoch</span>
-              <span style={{ fontSize: 42, fontWeight: 400, color: '#f8fafc', fontFamily: 'Georgia, serif' }}>Converter</span>
+              <span style={{ fontSize: 42, fontWeight: 800, color: '#60a5fa', fontFamily: 'inherit' }}>Epoch</span>
+              <span style={{ fontSize: 42, fontWeight: 400, color: '#f8fafc', fontFamily: 'inherit' }}>Converter</span>
             </div>
             <p style={{ margin: '10px 0 0', maxWidth: 760, color: '#94a3b8' }}>
               Epoch & Unix Timestamp Conversion Tools for browser-only local time, UTC time, and timestamp conversions.
@@ -224,7 +224,7 @@ export default function TimestampConverterPage() {
                 <span style={{ fontSize: 14, color: '#f8fafc', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Current epoch time</span>
               </div>
               <p style={{ margin: 0, color: '#e2e8f0', fontSize: 18, lineHeight: 1.5 }}>
-                The current Unix epoch time is <span style={{ color: '#f973ac', fontWeight: 700 }}>{currentEpoch}</span>
+                The current Unix epoch time is <span style={{ color: '#60a5fa', fontWeight: 700 }}>{currentEpoch}</span>
               </p>
             </div>
             <label style={{ display: 'inline-flex', flexDirection: 'column', gap: 8, minWidth: 180 }}>
@@ -254,7 +254,7 @@ export default function TimestampConverterPage() {
         <section style={sectionStyle}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
             <div>
-              <h2 style={{ margin: 0, color: '#f973ac', fontSize: 24, fontFamily: 'Georgia, serif' }}>
+              <h2 style={{ margin: 0, color: '#60a5fa', fontSize: 24, fontFamily: 'inherit' }}>
                 Convert epoch to human-readable date and vice versa
               </h2>
               <p style={{ marginTop: 10, color: '#94a3b8', maxWidth: 700 }}>
@@ -302,7 +302,7 @@ export default function TimestampConverterPage() {
                 type="button"
                 onClick={handleConvertTimestamp}
                 style={{
-                  background: '#f973ac',
+                  background: '#60a5fa',
                   color: '#020617',
                   border: 'none',
                   borderRadius: 14,
@@ -348,7 +348,7 @@ export default function TimestampConverterPage() {
         <section style={sectionStyle}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
             <div>
-              <h2 style={{ margin: 0, color: '#f973ac', fontSize: 24, fontFamily: 'Georgia, serif' }}>
+              <h2 style={{ margin: 0, color: '#60a5fa', fontSize: 24, fontFamily: 'inherit' }}>
                 Convert human-readable date to epoch timestamp
               </h2>
               <p style={{ marginTop: 10, color: '#94a3b8', maxWidth: 700 }}>
@@ -447,7 +447,7 @@ export default function TimestampConverterPage() {
                 type="button"
                 onClick={handleConvertDate}
                 style={{
-                  background: '#f973ac',
+                  background: '#60a5fa',
                   color: '#020617',
                   border: 'none',
                   borderRadius: 14,

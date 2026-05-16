@@ -26,8 +26,8 @@
 .json-compare-header h1 {
   margin: 0;
   font-size: 2.2rem;
-  color: #f973ac;
-  font-family: Georgia, serif;
+  color: #60a5fa;
+  font-family: inherit;
 }
 
 .json-compare-header p {
@@ -116,7 +116,7 @@
 }
 
 .json-action-button--primary {
-  background: #f973ac;
+  background: #60a5fa;
   color: #020617;
   border-color: transparent;
 }
@@ -159,8 +159,8 @@
 
 .diff-summary-header h2 {
   margin: 0;
-  color: #f973ac;
-  font-family: Georgia, serif;
+  color: #60a5fa;
+  font-family: inherit;
   font-size: 1.3rem;
 }
 

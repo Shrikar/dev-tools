@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import MonacoTextEditor from '../components/editor/MonacoTextEditor'
+import CollapsibleDataView from '../components/json/CollapsibleDataView'
 import { formatHttpRequest, parseHttpRequest } from '../utils/httpRequestUtils'
 import './tool-shell.css'
 
@@ -61,6 +62,15 @@ export default function RestClientTool() {
 
   const selected = useMemo(() => requests.find((item) => item.id === selectedId) ?? null, [requests, selectedId])
   const rawRequest = selected?.raw ?? ''
+
+
+  const responseMode = useMemo(() => {
+    const trimmed = responseBody.trim()
+    if (!trimmed) return null
+    if (trimmed.startsWith('{') || trimmed.startsWith('[')) return 'json' as const
+    if (trimmed.includes(':')) return 'yaml' as const
+    return null
+  }, [responseBody])
 
   const parsedPreview = useMemo(() => {
     try {
@@ -234,6 +244,7 @@ export default function RestClientTool() {
             {error && <div style={{ color: '#fda4af' }}>{error}</div>}
             <MonacoTextEditor value={responseHeaders} readOnly height="120px" language="plaintext" />
             <MonacoTextEditor value={responseBody} readOnly height="260px" language="plaintext" />
+            {responseMode && <CollapsibleDataView input={responseBody} mode={responseMode} />}
             <div className="tool-actions">
               <button className="tool-button secondary" onClick={exportResponse}>
                 Download Response

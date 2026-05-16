@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import MonacoTextEditor from '../components/editor/MonacoTextEditor'
+import BraceColoredJson from '../components/json/BraceColoredJson'
+import CollapsibleDataView from '../components/json/CollapsibleDataView'
 import { formatJSON, minifyJSON, sortJSONKeys, validateJSON } from '../utils/jsonUtils'
 import './tool-shell.css'
 
@@ -38,8 +40,9 @@ export default function JSONFormatter() {
             </button>
           </div>
         </section>
-        <section className="tool-card">
-          {error ? <div style={{ color: '#fda4af' }}>{error}</div> : <MonacoTextEditor value={output} readOnly height="420px" language="json" />}
+        <section>
+          <div className="tool-card">{error ? <div style={{ color: '#fda4af' }}>{error}</div> : <BraceColoredJson jsonText={output} />}</div>
+          <CollapsibleDataView input={output} mode="json" />
         </section>
       </div>
     </div>
