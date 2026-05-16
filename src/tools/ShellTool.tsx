@@ -29,6 +29,11 @@ function helpText() {
     '  help',
     '  clear',
     '  tools',
+    '  ls',
+    '  pwd',
+    '  date',
+    '  cd <path>',
+    '  cat <name>',
     '  open <name|path>',
     '  now',
     '  uuid',
@@ -43,6 +48,7 @@ function helpText() {
 export default function ShellTool() {
   const navigate = useNavigate()
   const [command, setCommand] = useState('')
+  const [cwd, setCwd] = useState('/dev-tools')
   const [history, setHistory] = useState<Line[]>([
     { id: crypto.randomUUID(), type: 'output', text: 'Dev Tools Shell\nType `help` to list commands.' },
   ])
@@ -52,6 +58,12 @@ export default function ShellTool() {
     const grouped = categories.map((category) => `${category.name}: ${category.tools.map((tool) => tool.slug).join(', ')}`)
     const standalone = standaloneTools.map((tool) => `${tool.name}: ${tool.path}`)
     return [...grouped, ...standalone].join('\n')
+  }, [])
+
+  const lsText = useMemo(() => {
+    const suiteNames = categories.map((category) => category.name.replace(' Suite', '').toLowerCase())
+    const toolNames = standaloneTools.map((tool) => tool.name.toLowerCase().replace(/\s+/g, '-'))
+    return [...suiteNames, ...toolNames, 'README'].join('  ')
   }, [])
 
   const append = (type: Line['type'], text: string) => {
@@ -84,9 +96,43 @@ export default function ShellTool() {
         return
       }
 
-      if (raw === 'now') {
+      if (raw === 'ls') {
+        append('output', lsText)
+        return
+      }
+
+      if (raw === 'pwd') {
+        append('output', cwd)
+        return
+      }
+
+      if (raw === 'date' || raw === 'now') {
         append('output', new Date().toString())
         return
+      }
+
+      if (raw.startsWith('cd ')) {
+        const target = raw.slice(3).trim()
+        if (!target || target === '~') {
+          setCwd('/dev-tools')
+          append('output', '')
+          return
+        }
+        if (target === '/' || target === '/dev-tools') {
+          setCwd('/dev-tools')
+          append('output', '')
+          return
+        }
+        throw new Error('Browser shell uses a virtual filesystem. Supported: cd /dev-tools')
+      }
+
+      if (raw.startsWith('cat ')) {
+        const target = raw.slice(4).trim().toLowerCase()
+        if (target === 'readme' || target === 'readme.md') {
+          append('output', 'Dev Tools browser shell\n- local simulation only\n- no real OS/process/file access\nUse `open <tool>` to navigate.')
+          return
+        }
+        throw new Error('Only virtual files are available. Try: cat README')
       }
 
       if (raw === 'uuid') {
