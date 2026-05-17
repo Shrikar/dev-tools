@@ -324,7 +324,7 @@ export default function CertificateToolkitTool() {
   return (
     <div className="tool-shell" style={{ maxWidth: '100%' }}>
       <h1>Certificate Toolkit</h1>
-      <p>Decode PEM/CSR/X.509 blocks and run certificate validity checks in-browser.</p>
+      <p>Decode PEM/CSR/X.509 blocks and run certificate validity checks in-browser, plus SOPS metadata operations.</p>
 
       <div className="tool-grid" style={{ alignItems: 'start' }}>
         <section className="tool-card">
@@ -350,6 +350,13 @@ export default function CertificateToolkitTool() {
           </div>
         </section>
       </div>
+
+      <section className="tool-card" style={{ marginTop: 2 }}>
+        <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#93c5fd' }}>SOPS Operations</h2>
+        <p style={{ marginTop: 6, marginBottom: 0, color: '#94a3b8' }}>
+          Browser-safe SOPS checks: metadata summary, encrypted path detection, and cleartext path audit.
+        </p>
+      </section>
 
       <div className="tool-grid" style={{ alignItems: 'start' }}>
         <section className="tool-card">

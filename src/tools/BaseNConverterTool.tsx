@@ -3,6 +3,7 @@ import MonacoTextEditor from '../components/editor/MonacoTextEditor'
 import './tool-shell.css'
 
 type Encoding = 'utf8' | 'bin' | 'oct' | 'dec' | 'hex' | 'base32' | 'base58' | 'base64'
+type NumberBase = 'bin' | 'oct' | 'dec' | 'hex'
 
 const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 const BASE32_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
@@ -203,9 +204,51 @@ function renderOutputs(bytes: Uint8Array) {
   }
 }
 
+function normalizeNumberInput(value: string, base: NumberBase) {
+  const trimmed = value.trim().toLowerCase().replace(/\s+/g, '')
+  if (!trimmed) return ''
+  const sign = trimmed.startsWith('-') ? '-' : ''
+  const body = sign ? trimmed.slice(1) : trimmed
+  if (!body) throw new Error('Enter a number value.')
+
+  const patterns: Record<NumberBase, RegExp> = {
+    bin: /^[01]+$/,
+    oct: /^[0-7]+$/,
+    dec: /^[0-9]+$/,
+    hex: /^[0-9a-f]+$/,
+  }
+
+  if (!patterns[base].test(body)) {
+    throw new Error(`Invalid ${base.toUpperCase()} number.`)
+  }
+
+  return sign + body
+}
+
+function parseBigIntFromBase(value: string, base: NumberBase) {
+  const normalized = normalizeNumberInput(value, base)
+  if (!normalized) return null
+  const negative = normalized.startsWith('-')
+  const body = negative ? normalized.slice(1) : normalized
+  const prefix: Record<NumberBase, string> = { bin: '0b', oct: '0o', dec: '', hex: '0x' }
+  const parsed = BigInt(prefix[base] + body)
+  return negative ? -parsed : parsed
+}
+
+function formatBigIntToBase(value: bigint, base: NumberBase) {
+  const negative = value < 0n
+  const abs = negative ? -value : value
+  const radix: Record<NumberBase, number> = { bin: 2, oct: 8, dec: 10, hex: 16 }
+  const out = abs.toString(radix[base])
+  return `${negative ? '-' : ''}${base === 'hex' ? out.toUpperCase() : out}`
+}
+
 export default function BaseNConverterTool() {
   const [sourceEncoding, setSourceEncoding] = useState<Encoding>('utf8')
   const [input, setInput] = useState('Hello Dev Tools')
+  const [numberInput, setNumberInput] = useState('42')
+  const [numberFromBase, setNumberFromBase] = useState<NumberBase>('dec')
+  const [numberToBase, setNumberToBase] = useState<NumberBase>('hex')
 
   const result = useMemo(() => {
     try {
@@ -229,10 +272,53 @@ export default function BaseNConverterTool() {
     }
   }, [input, sourceEncoding])
 
+  const numberResult = useMemo(() => {
+    try {
+      const parsed = parseBigIntFromBase(numberInput, numberFromBase)
+      if (parsed === null) return { output: '', error: '' }
+      return { output: formatBigIntToBase(parsed, numberToBase), error: '' }
+    } catch (err) {
+      return { output: '', error: (err as Error).message }
+    }
+  }, [numberInput, numberFromBase, numberToBase])
+
   return (
     <div className="tool-shell" style={{ maxWidth: '100%' }}>
       <h1>Base-N Converter Suite</h1>
       <p>Convert between binary, octal, decimal, hex, base32, base58, and base64 using a shared byte representation.</p>
+
+      <section className="tool-card" style={{ display: 'grid', gap: 10 }}>
+        <label className="tool-label">Number Conversion</label>
+        <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'minmax(0, 1fr) 160px minmax(0, 1fr) 160px' }}>
+          <label style={{ display: 'grid', gap: 6 }}>
+            <span className="tool-label">Input number</span>
+            <input className="tool-input" value={numberInput} onChange={(event) => setNumberInput(event.target.value)} placeholder="255" />
+          </label>
+          <label style={{ display: 'grid', gap: 6 }}>
+            <span className="tool-label">From base</span>
+            <select className="tool-select" value={numberFromBase} onChange={(event) => setNumberFromBase(event.target.value as NumberBase)}>
+              <option value="dec">Decimal</option>
+              <option value="bin">Binary</option>
+              <option value="oct">Octal</option>
+              <option value="hex">Hex</option>
+            </select>
+          </label>
+          <label style={{ display: 'grid', gap: 6 }}>
+            <span className="tool-label">Output</span>
+            <input className="tool-input" value={numberResult.output} readOnly placeholder="Converted value" />
+          </label>
+          <label style={{ display: 'grid', gap: 6 }}>
+            <span className="tool-label">To base</span>
+            <select className="tool-select" value={numberToBase} onChange={(event) => setNumberToBase(event.target.value as NumberBase)}>
+              <option value="hex">Hex</option>
+              <option value="bin">Binary</option>
+              <option value="oct">Octal</option>
+              <option value="dec">Decimal</option>
+            </select>
+          </label>
+        </div>
+        {numberResult.error && <div style={{ color: '#fca5a5' }}>Number conversion error: {numberResult.error}</div>}
+      </section>
 
       <section className="tool-card" style={{ display: 'grid', gap: 10 }}>
         <div style={{ display: 'grid', gap: 10, gridTemplateColumns: '220px 1fr' }}>

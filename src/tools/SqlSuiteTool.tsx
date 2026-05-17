@@ -70,17 +70,16 @@ function lintSql(input: string): string[] {
 
 export default function SqlSuiteTool() {
   const [input, setInput] = useState('select * from posts where user_id = 1 order by id desc')
-  const [output, setOutput] = useState('')
 
   const lintMessages = useMemo(() => lintSql(input), [input])
 
   const onFormat = () => {
-    setOutput(formatSql(input))
+    setInput(formatSql(input))
   }
 
   const onMinify = () => {
     const min = normalizeWhitespace(uppercaseKeywords(input))
-    setOutput(min.endsWith(';') ? min : `${min};`)
+    setInput(min.endsWith(';') ? min : `${min};`)
   }
 
   return (
@@ -88,7 +87,7 @@ export default function SqlSuiteTool() {
       <h1>SQL Suite</h1>
       <p>Format SQL and run basic safety/lint checks in the browser.</p>
 
-      <div className="tool-grid" style={{ alignItems: 'start' }}>
+      <div className="tool-grid" style={{ alignItems: 'start', gridTemplateColumns: 'minmax(0, 1fr) 360px' }}>
         <section className="tool-card">
           <label className="tool-label">SQL input</label>
           <MonacoTextEditor value={input} onChange={setInput} height="56vh" language="sql" />
@@ -98,11 +97,7 @@ export default function SqlSuiteTool() {
           </div>
         </section>
 
-        <section style={{ display: 'grid', gap: 12 }}>
-          <div className="tool-card">
-            <label className="tool-label">Formatted output</label>
-            <MonacoTextEditor value={output} readOnly height="34vh" language="sql" />
-          </div>
+        <section style={{ display: 'grid', gap: 10 }}>
           <div className="tool-card">
             <label className="tool-label">Basic lint checks</label>
             <ul style={{ margin: 0, paddingLeft: 20, color: '#cbd5e1', lineHeight: 1.7 }}>

@@ -8,11 +8,27 @@ interface MatchRow {
   groups: string[]
 }
 
+const FLAG_OPTIONS = ['', 'g', 'i', 'm', 's', 'u', 'y', 'gi', 'gm', 'gs', 'gu', 'gy', 'gim', 'gimu']
+
+function slashCount(value: string) {
+  return (value.match(/\\/g) ?? []).length
+}
+
 export default function RegexStudioTool() {
   const [pattern, setPattern] = useState('\\b\\w+@\\w+\\.\\w+\\b')
   const [flags, setFlags] = useState('g')
   const [input, setInput] = useState('Contact us at team@example.com or hello@devtools.io')
   const [replaceText, setReplaceText] = useState('[redacted-email]')
+  const [patternInfo, setPatternInfo] = useState('')
+
+  const onPatternChange = (next: string) => {
+    if (slashCount(next) < slashCount(pattern)) {
+      setPatternInfo('Backslash is protected and cannot be deleted.')
+      return
+    }
+    setPatternInfo('')
+    setPattern(next)
+  }
 
   const analysis = useMemo(() => {
     try {
@@ -49,13 +65,20 @@ export default function RegexStudioTool() {
         <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'minmax(0, 1fr) 120px' }}>
           <label style={{ display: 'grid', gap: 6 }}>
             <span className="tool-label">Pattern</span>
-            <input className="tool-input" value={pattern} onChange={(event) => setPattern(event.target.value)} placeholder="\\bword\\b" />
+            <input className="tool-input" value={pattern} onChange={(event) => onPatternChange(event.target.value)} placeholder="\\bword\\b" />
           </label>
           <label style={{ display: 'grid', gap: 6 }}>
             <span className="tool-label">Flags</span>
-            <input className="tool-input" value={flags} onChange={(event) => setFlags(event.target.value)} placeholder="gim" />
+            <select className="tool-select" value={flags} onChange={(event) => setFlags(event.target.value)}>
+              {FLAG_OPTIONS.map((option) => (
+                <option key={option || 'none'} value={option}>
+                  {option || '(none)'}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
+        {patternInfo && <div style={{ color: '#fbbf24' }}>{patternInfo}</div>}
 
         {analysis.error && <div style={{ color: '#fca5a5' }}>Regex error: {analysis.error}</div>}
       </section>
