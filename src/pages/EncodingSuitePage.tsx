@@ -3,14 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import SuiteTabs from '../components/layout/SuiteTabs'
 import { categories } from '../config/tools'
 import { incrementSubToolUsage } from '../utils/toolUsageStats'
-import CurlConverterTool from '../tools/CurlConverterTool'
-import GraphQLExplorerTool from '../tools/GraphQLExplorerTool'
-import OpenApiViewerTool from '../tools/OpenApiViewerTool'
-import ApiMockSnippetTool from '../tools/ApiMockSnippetTool'
+import Base64Tool from '../tools/Base64Tool'
+import URLEncodeDecode from '../tools/URLEncodeDecode'
 
-const category = categories.find((item) => item.id === 'api')!
+const category = categories.find((item) => item.id === 'encoding')!
 
-export default function ApiSuitePage() {
+export default function EncodingSuitePage() {
   const { tool } = useParams()
   const navigate = useNavigate()
 
@@ -29,10 +27,8 @@ export default function ApiSuitePage() {
       <h1>{category.name}</h1>
       <p>{category.description}</p>
       <SuiteTabs category={category} />
-      {activeTool.slug === 'mock-snippets' && <ApiMockSnippetTool />}
-      {activeTool.slug === 'curl-converter' && <CurlConverterTool />}
-      {activeTool.slug === 'graphql' && <GraphQLExplorerTool />}
-      {activeTool.slug === 'openapi' && <OpenApiViewerTool />}
+      {activeTool.slug === 'base64' && <Base64Tool />}
+      {activeTool.slug === 'url' && <URLEncodeDecode />}
     </div>
   )
 }

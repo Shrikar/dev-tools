@@ -77,21 +77,36 @@ export const categories: CategoryConfig[] = [
     description: 'Converters and explorers for cURL, GraphQL, and OpenAPI workflows.',
     defaultToolSlug: 'curl-converter',
     tools: [
+      { id: 'api.mock-snippet', name: 'Mock Snippets', slug: 'mock-snippets', title: 'API Mock Snippet Generator', description: 'Generate faker-based mock endpoint snippets and paginated responses.' },
       { id: 'api.curl-converter', name: 'cURL Converter', slug: 'curl-converter', title: 'cURL Fetch HTTPie Converter', description: 'Convert cURL commands to fetch and HTTPie formats.' },
       { id: 'api.graphql', name: 'GraphQL', slug: 'graphql', title: 'GraphQL Runner Explorer', description: 'Run GraphQL queries and inspect schema introspection.' },
       { id: 'api.openapi', name: 'OpenAPI', slug: 'openapi', title: 'OpenAPI Viewer Request Generator', description: 'Inspect OpenAPI specs and generate request templates.' },
     ],
   },
+  {
+    id: 'encoding',
+    name: 'Encoding Suite',
+    path: '/encoding',
+    icon: 'EN',
+    title: 'Encoding Suite',
+    description: 'Text encoding and decoding utilities for Base64 and URL formats.',
+    defaultToolSlug: 'base64',
+    tools: [
+      { id: 'base64', name: 'Base64', slug: 'base64', title: 'Base64 Encode Decode', description: 'Encode and decode Base64 strings.' },
+      { id: 'url-encode', name: 'URL Encode/Decode', slug: 'url', title: 'URL Encode Decode', description: 'Encode and decode URL-safe strings.' },
+    ],
+  },
 ]
 
 export const standaloneTools: StandaloneToolConfig[] = [
-  { id: 'shell', name: 'Shell', path: '/shell', icon: '>_', title: 'Dev Shell', description: 'Terminal-style command interface for tool navigation and quick transforms.' },
+  { id: 'regex-studio', name: 'Regex Studio', path: '/regex-studio', icon: '.*', title: 'Regex Studio', description: 'Test regex patterns with flags, groups, and replace preview.' },
+  { id: 'sql-suite', name: 'SQL Suite', path: '/sql-suite', icon: 'SQL', title: 'SQL Suite', description: 'Format SQL and run basic lint checks.' },
+  { id: 'base-n-suite', name: 'Base-N Suite', path: '/base-n-suite', icon: 'BN', title: 'Base-N Converter Suite', description: 'Convert among bin, oct, dec, hex, base32, base58, and base64.' },
+  { id: 'cert-toolkit', name: 'Cert Toolkit', path: '/cert-toolkit', icon: 'CRT', title: 'Certificate Toolkit', description: 'Decode PEM/CSR/X.509 and validate certificate time windows.' },
   { id: 'rest-client', name: 'REST Client', path: '/rest-client', icon: 'API', title: 'REST Client', description: 'Browser-only HTTP client with .http upload/download support.' },
   { id: 'yaml-json', name: 'YAML ↔ JSON', path: '/yaml-json-converter', icon: 'YJ', title: 'YAML JSON Converter', description: 'Convert between YAML and JSON formats.' },
-  { id: 'base64', name: 'Base64', path: '/base64', icon: '64', title: 'Base64 Encode Decode', description: 'Encode and decode Base64 strings.' },
   { id: 'hash-generator', name: 'Hash Generator', path: '/hash-generator', icon: '#', title: 'Hash Generator', description: 'Generate SHA-256, SHA-512, and MD5 hashes.' },
   { id: 'uuid-generator', name: 'UUID Generator', path: '/uuid-generator', icon: 'ID', title: 'UUID Generator', description: 'Generate and validate UUID strings.' },
-  { id: 'url-encode', name: 'URL Encode/Decode', path: '/url-encode-decode', icon: 'URL', title: 'URL Encode Decode', description: 'Encode and decode URL-safe strings.' },
   { id: 'timestamp', name: 'Timestamp Converter', path: '/timestamp-converter', icon: '⏱', title: 'Timestamp Converter', description: 'Convert epoch and date/time values.' },
 ]
 
@@ -102,6 +117,8 @@ export const legacyRedirects: Record<string, string> = {
   '/json-escape': '/json/escape',
   '/jwt-decoder': '/jwt/decoder',
   '/cron-expression-helper': '/cron/helper',
+  '/base64': '/encoding/base64',
+  '/url-encode-decode': '/encoding/url',
 }
 
 export const legacyPathToToolId: Record<string, string> = {
@@ -111,7 +128,10 @@ export const legacyPathToToolId: Record<string, string> = {
   '/json-escape': 'json.escape',
   '/jwt-decoder': 'jwt.decoder',
   '/cron-expression-helper': 'cron.helper',
-  '/shell': 'shell',
+  '/regex-studio': 'regex-studio',
+  '/sql-suite': 'sql-suite',
+  '/base-n-suite': 'base-n-suite',
+  '/cert-toolkit': 'cert-toolkit',
   '/rest-client': 'rest-client',
   '/yaml-json-converter': 'yaml-json',
   '/base64': 'base64',

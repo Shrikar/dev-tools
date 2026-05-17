@@ -48,6 +48,7 @@ function loadRequests(): SavedRequest[] {
 export default function RestClientTool() {
   const [requests, setRequests] = useState<SavedRequest[]>(() => loadRequests())
   const [selectedId, setSelectedId] = useState(() => loadRequests()[0].id)
+  const [saveMessage, setSaveMessage] = useState('Loaded from browser storage.')
   const [statusLine, setStatusLine] = useState('No request sent yet.')
   const [responseHeaders, setResponseHeaders] = useState('')
   const [responseBody, setResponseBody] = useState('')
@@ -153,6 +154,11 @@ export default function RestClientTool() {
     setSelectedId(request.id)
   }
 
+  const saveToBrowser = () => {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(requests))
+    setSaveMessage('Saved to browser storage.')
+  }
+
   const duplicateRequest = () => {
     if (!selected) return
     const request = createRequest(`${selected.name} Copy`, selected.raw)
@@ -177,6 +183,7 @@ export default function RestClientTool() {
     <div className="tool-shell" style={{ maxWidth: '100%' }}>
       <h1>REST Client</h1>
       <p>HTTPie-style browser-only client. Save multiple requests locally, run with fetch, and import/export `.http` files.</p>
+      <p style={{ color: '#93c5fd', fontSize: 13 }}>{saveMessage}</p>
 
       <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 16 }}>
         <section className="tool-card" style={{ display: 'grid', gap: 10, alignContent: 'start', maxHeight: '760px' }}>
@@ -228,6 +235,9 @@ export default function RestClientTool() {
             <div className="tool-actions">
               <button className="tool-button" onClick={sendRequest} disabled={isLoading || !selected}>
                 {isLoading ? 'Sending...' : 'Send Request'}
+              </button>
+              <button className="tool-button secondary" onClick={saveToBrowser}>
+                Save to Browser
               </button>
               <button className="tool-button secondary" onClick={exportRequest} disabled={!selected}>
                 Download .http

@@ -1,6 +1,7 @@
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { categories, standaloneTools } from '../config/tools'
-import { getSubToolUsageCount } from '../utils/toolUsageStats'
+import { getSubToolLastUsedAt, getSubToolUsageCount } from '../utils/toolUsageStats'
 
 const standaloneAsSubtools = standaloneTools.map((tool) => ({
   id: tool.id,
@@ -19,8 +20,49 @@ const groupedSubtools = categories.flatMap((category) =>
 )
 
 const cards = [...groupedSubtools, ...standaloneAsSubtools]
+const SORT_STORAGE_KEY = 'devtools.home.sort'
+type SortMode = 'default' | 'most-used' | 'recently-used'
 
 export default function HomePage() {
+  const [sortMode, setSortMode] = useState<SortMode>(() => {
+    if (typeof window === 'undefined') return 'default'
+    const stored = window.localStorage.getItem(SORT_STORAGE_KEY)
+    if (stored === 'most-used' || stored === 'recently-used') return stored
+    return 'default'
+  })
+
+  const sortedCards = useMemo(() => {
+    const withCounts = cards.map((tool) => ({
+      ...tool,
+      usage: getSubToolUsageCount(tool.id),
+      lastUsedAt: getSubToolLastUsedAt(tool.id),
+    }))
+
+    if (sortMode === 'most-used') {
+      return [...withCounts].sort((a, b) => {
+        if (b.usage !== a.usage) return b.usage - a.usage
+        return a.name.localeCompare(b.name)
+      })
+    }
+
+    if (sortMode === 'recently-used') {
+      return [...withCounts].sort((a, b) => {
+        if (b.lastUsedAt !== a.lastUsedAt) return b.lastUsedAt - a.lastUsedAt
+        if (b.usage !== a.usage) return b.usage - a.usage
+        return a.name.localeCompare(b.name)
+      })
+    }
+
+    return [...withCounts].sort((a, b) => a.name.localeCompare(b.name))
+  }, [sortMode])
+
+  const onChangeSort = (next: SortMode) => {
+    setSortMode(next)
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(SORT_STORAGE_KEY, next)
+    }
+  }
+
   return (
     <div style={{ display: 'grid', gap: 18 }}>
       <section
@@ -37,8 +79,21 @@ export default function HomePage() {
         </p>
       </section>
 
+      <section style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>Sort:</span>
+        <button className={`tool-button${sortMode === 'default' ? '' : ' secondary'}`} onClick={() => onChangeSort('default')}>
+          Default (A-Z)
+        </button>
+        <button className={`tool-button${sortMode === 'most-used' ? '' : ' secondary'}`} onClick={() => onChangeSort('most-used')}>
+          Most Used
+        </button>
+        <button className={`tool-button${sortMode === 'recently-used' ? '' : ' secondary'}`} onClick={() => onChangeSort('recently-used')}>
+          Recently Used
+        </button>
+      </section>
+
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 }}>
-        {cards.map((tool) => (
+        {sortedCards.map((tool) => (
           <Link
             key={tool.id}
             to={tool.path}
@@ -55,7 +110,7 @@ export default function HomePage() {
           >
             <strong>{tool.name}</strong>
             <span style={{ fontSize: 13, color: '#94a3b8' }}>{tool.description}</span>
-            <span style={{ fontSize: 12, color: '#93c5fd' }}>Used {getSubToolUsageCount(tool.id)} times</span>
+            <span style={{ fontSize: 12, color: '#93c5fd' }}>Used {tool.usage} times</span>
           </Link>
         ))}
       </section>

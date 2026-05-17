@@ -6,13 +6,15 @@ import JsonSuitePage from './pages/JsonSuitePage'
 import JwtSuitePage from './pages/JwtSuitePage'
 import CronSuitePage from './pages/CronSuitePage'
 import ApiSuitePage from './pages/ApiSuitePage'
+import EncodingSuitePage from './pages/EncodingSuitePage'
 import YamlJsonConverterPage from './pages/YamlJsonConverterPage'
 import RestClientPage from './pages/RestClientPage'
-import ShellPage from './pages/ShellPage'
-import Base64Page from './pages/Base64Page'
+import RegexStudioPage from './pages/RegexStudioPage'
+import SqlSuitePage from './pages/SqlSuitePage'
+import BaseNConverterPage from './pages/BaseNConverterPage'
+import CertificateToolkitPage from './pages/CertificateToolkitPage'
 import HashGeneratorPage from './pages/HashGeneratorPage'
 import UuidGeneratorPage from './pages/UuidGeneratorPage'
-import UrlEncodeDecodePage from './pages/UrlEncodeDecodePage'
 import TimestampConverterPage from './pages/TimestampConverterPage'
 import { legacyRedirects } from './config/tools'
 
@@ -35,13 +37,17 @@ function App() {
           <Route path="/api" element={<Navigate to="/api/curl-converter" replace />} />
           <Route path="/api/:tool" element={<ApiSuitePage />} />
 
+          <Route path="/encoding" element={<Navigate to="/encoding/base64" replace />} />
+          <Route path="/encoding/:tool" element={<EncodingSuitePage />} />
+
           <Route path="/rest-client" element={<RestClientPage />} />
-          <Route path="/shell" element={<ShellPage />} />
+          <Route path="/regex-studio" element={<RegexStudioPage />} />
+          <Route path="/sql-suite" element={<SqlSuitePage />} />
+          <Route path="/base-n-suite" element={<BaseNConverterPage />} />
+          <Route path="/cert-toolkit" element={<CertificateToolkitPage />} />
           <Route path="/yaml-json-converter" element={<YamlJsonConverterPage />} />
-          <Route path="/base64" element={<Base64Page />} />
           <Route path="/hash-generator" element={<HashGeneratorPage />} />
           <Route path="/uuid-generator" element={<UuidGeneratorPage />} />
-          <Route path="/url-encode-decode" element={<UrlEncodeDecodePage />} />
           <Route path="/timestamp-converter" element={<TimestampConverterPage />} />
 
           {Object.entries(legacyRedirects).map(([oldPath, newPath]) => (

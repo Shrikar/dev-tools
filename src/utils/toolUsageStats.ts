@@ -4,12 +4,14 @@ const LEGACY_STORAGE_KEY = 'devtools.toolUsage'
 interface UsageStore {
   categoryCounts: Record<string, number>
   toolCounts: Record<string, number>
+  toolLastUsedAt: Record<string, number>
   migratedLegacy: boolean
 }
 
 const emptyStore = (): UsageStore => ({
   categoryCounts: {},
   toolCounts: {},
+  toolLastUsedAt: {},
   migratedLegacy: false,
 })
 
@@ -23,6 +25,7 @@ function readStore(): UsageStore {
     return {
       categoryCounts: parsed.categoryCounts ?? {},
       toolCounts: parsed.toolCounts ?? {},
+      toolLastUsedAt: parsed.toolLastUsedAt ?? {},
       migratedLegacy: Boolean(parsed.migratedLegacy),
     }
   } catch {
@@ -73,6 +76,7 @@ export function incrementSubToolUsage(toolId: string) {
   if (!toolId) return
   const store = readStore()
   store.toolCounts[toolId] = (store.toolCounts[toolId] ?? 0) + 1
+  store.toolLastUsedAt[toolId] = Date.now()
   writeStore(store)
 }
 
@@ -82,4 +86,8 @@ export function getSubToolUsageCount(toolId: string): number {
 
 export function getCategoryUsageCount(categoryId: string): number {
   return readStore().categoryCounts[categoryId] ?? 0
+}
+
+export function getSubToolLastUsedAt(toolId: string): number {
+  return readStore().toolLastUsedAt[toolId] ?? 0
 }
