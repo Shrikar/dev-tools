@@ -14,6 +14,21 @@ Privacy-first developer utilities that run entirely in your browser.
 - URL Encode/Decode
 - Timestamp Converter
 
+## Live demo
+
+  - Visit the live site: https://shrikar.github.io/dev-tools
+    
+  - You can navigate directly to specific tools using the route paths (examples):
+    - Home: https://shrikar.github.io/dev-tools/
+    - JSON Formatter: https://shrikar.github.io/dev-tools/json-formatter
+    - JSON Compare: https://shrikar.github.io/dev-tools/json-compare
+    - JWT Decoder: https://shrikar.github.io/dev-tools/jwt-decoder
+    - Base64: https://shrikar.github.io/dev-tools/base64
+    - Hash Generator: https://shrikar.github.io/dev-tools/hash-generator
+    - UUID Generator: https://shrikar.github.io/dev-tools/uuid-generator
+    - URL Encode/Decode: https://shrikar.github.io/dev-tools/url-encode-decode
+    - Timestamp Converter: https://shrikar.github.io/dev-tools/timestamp-converter
+
 ## Tech Stack
 
 - React 19 + TypeScript
